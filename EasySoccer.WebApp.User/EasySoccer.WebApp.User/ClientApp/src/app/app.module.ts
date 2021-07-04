@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { HomeComponent } from "./home/home.component";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent, NavMenuComponent, HomeComponent],
@@ -18,6 +19,7 @@ import { HomeComponent } from "./home/home.component";
       [{ path: "", component: HomeComponent, pathMatch: "full" }],
       { relativeLinkResolution: "legacy" }
     ),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
