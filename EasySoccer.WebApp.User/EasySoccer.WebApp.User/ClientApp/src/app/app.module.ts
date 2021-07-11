@@ -7,16 +7,29 @@ import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { HomeComponent } from "./home/home.component";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { CompanyDetailComponent } from "./company-detail/company-detail.component";
 
 @NgModule({
-  declarations: [AppComponent, NavMenuComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    NavMenuComponent,
+    HomeComponent,
+    CompanyDetailComponent,
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(
-      [{ path: "", component: HomeComponent, pathMatch: "full" }],
+      [
+        { path: "", component: CompanyDetailComponent, pathMatch: "full" },
+        {
+          path: "companydetail",
+          component: CompanyDetailComponent,
+          pathMatch: "full",
+        },
+      ],
       { relativeLinkResolution: "legacy" }
     ),
     NgbModule,

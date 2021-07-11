@@ -1,0 +1,20 @@
+.container {
+  position: relative;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+.container-text {
+  font-size: 25px;
+  color: #fafafa;
+  padding-left: 15px;
+}
+
+.container-text-description {
+  font-size: 17px;
+  font-family: "Gilroy-Light" !important;
+}
