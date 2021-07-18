@@ -10,4 +10,6 @@ export class CompanyDetailComponent implements OnInit {
   constructor(companyService: CompanyService) {}
 
   ngOnInit(): void {}
+
+  getCompanyInfo() {}
 }
