@@ -31,7 +31,7 @@ import { NgxLoadingModule } from "ngx-loading";
       [
         { path: "", component: CompanyDetailComponent, pathMatch: "full" },
         {
-          path: "companydetail",
+          path: "companydetail/:companyId",
           component: CompanyDetailComponent,
           pathMatch: "full",
         },

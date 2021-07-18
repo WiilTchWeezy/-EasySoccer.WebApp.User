@@ -5,23 +5,24 @@
   id="company"
 >
   <img
-    src="https://www.ovale.com.br/_midias/jpg/2020/11/06/quadra-1226540.jpg"
+    [src]="companyInfo.imageLogo"
     alt="Snow"
     class="img-fluid"
     style="width: 100%"
   />
   <div class="centered bold-font container-text">
-    Complexo Esportivo Teste<br />
-    <span class="container-text-description"> Ribeirão Preto </span>
+    {{ companyInfo.name }}<br />
+    <span class="container-text-description"> {{ companyInfo.city }} </span>
   </div>
 </div>
 <div class="container">
   <p style="margin-bottom: 0px">
-    Descrição de Teste de Complexo Esportivo Teste
+    {{ companyInfo.description }}
   </p>
   <div class="card">
     <div class="card-body">
-      Endereço Completo <i class="fa fa-chevron-right" style="float: right"></i>
+      {{ companyInfo.completeAddress }}
+      <i class="fa fa-chevron-right" style="float: right"></i>
     </div>
   </div>
   <h5 class="border-bottom border-dark">Quadras</h5>
@@ -34,66 +35,30 @@
     <ol class="carousel-indicators" style="margin-bottom: 5px">
       <li
         data-target="#carouselExampleIndicators"
-        data-slide-to="0"
-        class="active"
+        [attr.data-slide-to]="i"
         style="background-color: black"
-      ></li>
-      <li
-        data-target="#carouselExampleIndicators"
-        style="background-color: black"
-        data-slide-to="1"
-      ></li>
-      <li
-        data-target="#carouselExampleIndicators"
-        style="background-color: black"
-        data-slide-to="2"
+        *ngFor="let item of companyInfo.soccerPitchs; let i = index"
+        [ngClass]="i == 0 ? 'active' : ''"
       ></li>
     </ol>
     <div class="carousel-inner">
-      <div class="carousel-item active">
+      <div
+        class="carousel-item"
+        *ngFor="let item of companyInfo.soccerPitchs; let i = index"
+        [ngClass]="i == 0 ? 'active' : ''"
+      >
         <div class="card d-block w-100">
           <img
             class="card-img-top"
-            src="https://www.ovale.com.br/_midias/jpg/2020/11/06/quadra-1226540.jpg"
+            [src]="
+              imageService.getImageUrlByImageName(item.imageName, 'soccerpitch')
+            "
             alt="Card image cap"
           />
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">{{ item.name }}</h5>
             <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="card d-block w-100">
-          <img
-            class="card-img-top"
-            src="https://www.ovale.com.br/_midias/jpg/2020/11/06/quadra-1226540.jpg"
-            alt="Card image cap"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="card d-block w-100">
-          <img
-            class="card-img-top"
-            src="https://www.ovale.com.br/_midias/jpg/2020/11/06/quadra-1226540.jpg"
-            alt="Card image cap"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              {{ item.description }}
             </p>
           </div>
         </div>
