@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { NgbDate, NgbModal, NgbModalConfig } from "@ng-bootstrap/ng-bootstrap";
+import { CreatePersonComponent } from "../modal/create-person/create-person.component";
 import { CompanyService } from "../services/company.service";
 import { ImageService } from "../services/image.service";
 
@@ -11,29 +13,49 @@ import { ImageService } from "../services/image.service";
 export class CompanyDetailComponent implements OnInit {
   companyId: string;
   companyInfo: any = {};
+  selectedDate: NgbDate;
   constructor(
     private companyService: CompanyService,
     private route: ActivatedRoute,
-    public imageService: ImageService
+    public imageService: ImageService,
+    private modalService: NgbModal,
+    config: NgbModalConfig
   ) {
     this.companyId = this.route.snapshot.params.companyId;
+    config.backdrop = "static";
+    config.keyboard = false;
   }
 
   ngOnInit(): void {
+    let today = new Date();
+    this.selectedDate = new NgbDate(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      today.getDate()
+    );
+
     this.getCompanyInfo();
   }
-
+  createPerson() {
+    const modalRef = this.modalService.open(CreatePersonComponent);
+    modalRef.componentInstance.name = "World";
+  }
+  dateChanged() {
+    this.getCompanyInfo();
+  }
   getCompanyInfo() {
-    this.companyService.getCompanyInfo(this.companyId).subscribe(
-      (response) => {
-        console.log(response);
-        this.companyInfo = response;
-        this.companyInfo.imageLogo = this.imageService.getImageUrlByImageName(
-          response.logo,
-          "company"
-        );
-      },
-      (error) => {}
-    );
+    this.companyService
+      .getCompanyInfo(this.companyId, this.selectedDate)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.companyInfo = response;
+          this.companyInfo.imageLogo = this.imageService.getImageUrlByImageName(
+            response.logo,
+            "company"
+          );
+        },
+        (error) => {}
+      );
   }
 }

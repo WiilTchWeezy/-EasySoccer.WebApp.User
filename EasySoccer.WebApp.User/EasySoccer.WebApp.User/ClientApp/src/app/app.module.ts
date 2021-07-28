@@ -3,18 +3,23 @@ import { LOCALE_ID, NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
+import localePt from "@angular/common/locales/pt";
 
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { HomeComponent } from "./home/home.component";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDateParserFormatter, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CompanyDetailComponent } from "./company-detail/company-detail.component";
 import { CookieService } from "ngx-cookie-service";
 import { CustomInterceptorInterceptor } from "./interceptor/custom-interceptor.interceptor";
 import { LoaderComponent } from "./loader/loader.component";
 import { LoaderModule } from "./loader/loader.module";
 import { NgxLoadingModule } from "ngx-loading";
+import { registerLocaleData } from "@angular/common";
+import { CustomDateParserFormatter } from "./adapters/NgbdDatepickerAdapter";
+import { CreatePersonComponent } from './modal/create-person/create-person.component';
 
+registerLocaleData(localePt, "pt-BR");
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +27,7 @@ import { NgxLoadingModule } from "ngx-loading";
     HomeComponent,
     CompanyDetailComponent,
     LoaderComponent,
+    CreatePersonComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -51,8 +57,9 @@ import { NgxLoadingModule } from "ngx-loading";
     },
     {
       provide: LOCALE_ID,
-      useValue: "pt",
+      useValue: "pt-BR",
     },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
   ],
   bootstrap: [AppComponent],
 })

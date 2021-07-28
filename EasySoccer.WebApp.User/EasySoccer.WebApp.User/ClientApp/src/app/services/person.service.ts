@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { environment } from "../../environments/environment";
 import { map } from "rxjs/operators";
-import { NgbDate } from "@ng-bootstrap/ng-bootstrap";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
-export class CompanyService {
+export class PersonService {
   endpoint = environment.urlApi;
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,19 +21,14 @@ export class CompanyService {
     return body || {};
   }
 
-  public getCompanyInfo(companyId, selectedDate: NgbDate): Observable<any> {
+  public postCreatePerson(name, email, phone): Observable<any> {
     return this.http
-      .get(
-        environment.urlApi +
-          "company/getcompanyinfocomplete?companyId=" +
-          companyId +
-          "&selectedDate=" +
-          selectedDate.year +
-          "-" +
-          selectedDate.month +
-          "-" +
-          selectedDate.day
-      )
+      .post(environment.urlApi + "user/createPerson", {
+        name,
+        email,
+        PhoneNumber: phone,
+        CreatedFrom: 2,
+      })
       .pipe(map(this.extractData));
   }
 }
