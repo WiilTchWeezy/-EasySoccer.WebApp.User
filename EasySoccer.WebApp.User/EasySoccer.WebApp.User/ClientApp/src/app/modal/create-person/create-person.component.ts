@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { PersonService } from "src/app/services/person.service";
+import { CreateReservationComponent } from "../create-reservation/create-reservation.component";
 
 @Component({
   selector: "app-create-person",
@@ -13,7 +14,8 @@ export class CreatePersonComponent implements OnInit {
   phone: string;
   constructor(
     public activeModal: NgbActiveModal,
-    private personService: PersonService
+    private personService: PersonService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {}
@@ -22,8 +24,7 @@ export class CreatePersonComponent implements OnInit {
       .postCreatePerson(this.name, this.email, this.phone)
       .subscribe(
         (response) => {
-          console.log("Ok");
-          console.log(response);
+          const modalRef = this.modalService.open(CreateReservationComponent);
         },
         (error) => {
           console.log(error);

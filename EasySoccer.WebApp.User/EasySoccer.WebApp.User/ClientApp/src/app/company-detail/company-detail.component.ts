@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { NgbDate, NgbModal, NgbModalConfig } from "@ng-bootstrap/ng-bootstrap";
 import { CreatePersonComponent } from "../modal/create-person/create-person.component";
+import { AuthService } from "../services/auth.service";
 import { CompanyService } from "../services/company.service";
 import { ImageService } from "../services/image.service";
 
@@ -19,7 +20,8 @@ export class CompanyDetailComponent implements OnInit {
     private route: ActivatedRoute,
     public imageService: ImageService,
     private modalService: NgbModal,
-    config: NgbModalConfig
+    config: NgbModalConfig,
+    private authService: AuthService
   ) {
     this.companyId = this.route.snapshot.params.companyId;
     config.backdrop = "static";
@@ -37,8 +39,10 @@ export class CompanyDetailComponent implements OnInit {
     this.getCompanyInfo();
   }
   createPerson() {
-    const modalRef = this.modalService.open(CreatePersonComponent);
-    modalRef.componentInstance.name = "World";
+    if (this.authService.isAuth()) {
+    } else {
+      const modalRef = this.modalService.open(CreatePersonComponent);
+    }
   }
   dateChanged() {
     this.getCompanyInfo();
