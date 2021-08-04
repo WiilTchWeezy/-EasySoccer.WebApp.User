@@ -12,30 +12,63 @@
 <div class="modal-body">
   <div class="row">
     <div class="form-group col-12">
-      <label for="name">Nome (*)</label>
-      <input
-        type="text"
-        class="form-control"
-        id="name"
-        placeholder="Seu Nome"
-        [(ngModel)]="name"
-      />
+      <label for="soccerPitch">Quadra (*)</label>
+      <select class="form-control" id="soccerPitch">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-12">
+      <label for="soccerPitchPlan">Plano (*)</label>
+      <select class="form-control" id="soccerPitchPlan">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-12">
+      <label for="phone">Data Selecionada</label>
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="dd/mm/yyyy"
+          name="dp"
+          ngbDatepicker
+          #d="ngbDatepicker"
+          [(ngModel)]="selectedDate"
+          (ngModelChange)="dateChanged()"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="d.toggle()"
+            type="button"
+          >
+            <i class="fa fa-calendar"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="form-group col-6">
-      <label for="phone">Telefone (*)</label>
-      <input
-        type="text"
-        class="form-control"
-        id="phone"
-        mask="(00) 00000-0000"
-        placeholder="Seu Telefone"
-        [(ngModel)]="phone"
-      />
+      <label for="hourStart">Horário Inicial (*)</label>
+      <select class="form-control" id="hourStart">
+        <option>20:00</option>
+        <option>20:30</option>
+      </select>
     </div>
     <div class="form-group col-6">
-      <label for="email">Email</label>
+      <label for="email">Horário Final</label>
       <input
         type="email"
         class="form-control"
@@ -48,6 +81,6 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="save()">
-    Salvar
+    Agendar
   </button>
 </div>

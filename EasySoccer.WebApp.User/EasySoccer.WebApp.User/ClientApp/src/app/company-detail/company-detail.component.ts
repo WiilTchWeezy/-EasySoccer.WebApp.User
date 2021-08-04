@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { NgbDate, NgbModal, NgbModalConfig } from "@ng-bootstrap/ng-bootstrap";
 import { CreatePersonComponent } from "../modal/create-person/create-person.component";
+import { CreateReservationComponent } from "../modal/create-reservation/create-reservation.component";
 import { AuthService } from "../services/auth.service";
 import { CompanyService } from "../services/company.service";
 import { ImageService } from "../services/image.service";
@@ -40,6 +41,7 @@ export class CompanyDetailComponent implements OnInit {
   }
   createPerson() {
     if (this.authService.isAuth()) {
+      this.modalService.open(CreateReservationComponent);
     } else {
       const modalRef = this.modalService.open(CreatePersonComponent);
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbDate } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-create-reservation",
@@ -10,9 +10,12 @@ export class CreateReservationComponent implements OnInit {
   name: string;
   email: string;
   phone: string;
+  selectedDate: NgbDate;
+
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {}
 
   save() {}
+  dateChanged() {}
 }
