@@ -39,9 +39,15 @@ export class CompanyDetailComponent implements OnInit {
 
     this.getCompanyInfo();
   }
-  createPerson() {
+  schedule(item: any) {
     if (this.authService.isAuth()) {
-      this.modalService.open(CreateReservationComponent);
+      const modalRef = this.modalService.open(CreateReservationComponent);
+      if (item && item.freeSoccerPitches) {
+        modalRef.componentInstance.soccerPitches = item.freeSoccerPitches;
+      }
+      if (this.selectedDate) {
+        modalRef.componentInstance.selectedDate = this.selectedDate;
+      }
     } else {
       const modalRef = this.modalService.open(CreatePersonComponent);
     }
