@@ -40,10 +40,12 @@ export class CompanyDetailComponent implements OnInit {
     this.getCompanyInfo();
   }
   schedule(item: any) {
+    console.log(item);
     if (this.authService.isAuth()) {
       const modalRef = this.modalService.open(CreateReservationComponent);
       if (item && item.freeSoccerPitches) {
         modalRef.componentInstance.soccerPitches = item.freeSoccerPitches;
+        modalRef.componentInstance.optionsHours = item.optionsHours;
       }
       if (this.selectedDate) {
         modalRef.componentInstance.selectedDate = this.selectedDate;

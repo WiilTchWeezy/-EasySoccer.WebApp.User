@@ -12,10 +12,12 @@ export class CreateReservationComponent implements OnInit {
   email: string;
   phone: string;
   selectedDate: NgbDate;
+  selectedHour: string;
   soccerPitches: any[] = [];
   soccerPitchPlans: any[] = [];
   selectedSoccerPitch: any;
   selectedSoccerPitchPlan: any;
+  optionsHours: any[] = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -30,7 +32,7 @@ export class CreateReservationComponent implements OnInit {
     if (this.selectedSoccerPitch) {
       console.log(this.selectedSoccerPitch);
       this.soccerPitchPlanService
-        .getBySoccerPitch(this.selectedSoccerPitch.soccerPitchId)
+        .getBySoccerPitch(this.selectedSoccerPitch.id)
         .subscribe(
           (response) => {
             this.soccerPitchPlans = response;
@@ -39,4 +41,6 @@ export class CreateReservationComponent implements OnInit {
         );
     }
   }
+
+  hourChanged() {}
 }
