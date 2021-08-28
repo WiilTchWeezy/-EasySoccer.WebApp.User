@@ -9,10 +9,11 @@ import { SoccerPitchPlanService } from "src/app/services/soccer-pitch-plan.servi
 })
 export class CreateReservationComponent implements OnInit {
   name: string;
-  email: string;
+  hourEnd: string;
   phone: string;
+  hour: number;
   selectedDate: NgbDate;
-  selectedHour: string;
+  selectedHour: any;
   soccerPitches: any[] = [];
   soccerPitchPlans: any[] = [];
   selectedSoccerPitch: any;
@@ -36,11 +37,18 @@ export class CreateReservationComponent implements OnInit {
         .subscribe(
           (response) => {
             this.soccerPitchPlans = response;
+            this.optionsHours = this.selectedSoccerPitch.avaliableHours;
+            this.selectedHour = this.selectedSoccerPitch.avaliableHours.filter(
+              (x) => x.hour == this.hour
+            )[0];
+            this.hourChanged();
           },
           (error) => {}
         );
     }
   }
 
-  hourChanged() {}
+  hourChanged() {
+    if (this.selectedHour) this.hourEnd = this.selectedHour.hourEnd;
+  }
 }

@@ -1,10 +1,15 @@
-<div class="modal-header">
-  <h4 class="modal-title">Informe seus dados</h4>
+<div class="modal-header" style="background-color: #ff591f">
+  <div>
+    <img
+      class="center-block img-fluid"
+      src="../../../assets/img/logoBlue.png"
+    />
+  </div>
   <button
     type="button"
+    (click)="activeModal.dismiss('Cross click')"
     class="close"
     aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"
   >
     <span aria-hidden="true">&times;</span>
   </button>
@@ -23,7 +28,17 @@
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-6">
+    <div class="form-group col-12">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Seu Email"
+        [(ngModel)]="email"
+      />
+    </div>
+    <div class="form-group col-12">
       <label for="phone">Telefone (*)</label>
       <input
         type="text"
@@ -34,20 +49,35 @@
         [(ngModel)]="phone"
       />
     </div>
-    <div class="form-group col-6">
-      <label for="email">Email</label>
+    <div class="form-group col-12">
+      <label for="phone">Senha (*)</label>
       <input
-        type="email"
+        type="password"
         class="form-control"
-        id="email"
-        placeholder="Seu Email"
-        [(ngModel)]="email"
+        id="phone"
+        placeholder="Sua Senha"
+        [(ngModel)]="password"
       />
     </div>
+    <div class="form-group col-12">
+      <label for="phone">Confirmação de Senha (*)</label>
+      <input
+        type="password"
+        class="form-control"
+        id="phone"
+        placeholder="Confirme sua senha"
+        [(ngModel)]="confirmPassword"
+      />
+    </div>
+    <div class="form-group col-12">
+      <button
+        type="button"
+        class="btn btn-primary btn-sm w-100"
+        style="background-color: #161e53"
+        (click)="save()"
+      >
+        Cadastrar-se
+      </button>
+    </div>
   </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="save()">
-    Salvar
-  </button>
 </div>

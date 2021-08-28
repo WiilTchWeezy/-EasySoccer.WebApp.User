@@ -8,6 +8,6 @@ export class AuthService {
   constructor(private cookieService: CookieService) {}
 
   isAuth() {
-    return true;
+    return false;
   }
 }

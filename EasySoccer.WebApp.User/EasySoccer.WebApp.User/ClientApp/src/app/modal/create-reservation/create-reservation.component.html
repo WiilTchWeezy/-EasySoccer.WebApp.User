@@ -76,19 +76,24 @@
         class="form-control"
         id="hourStart"
       >
-        <option *ngFor="let item of optionsHours; let i = index">
-          {{ item }}
+        <option
+          *ngFor="let item of optionsHours; let i = index"
+          [ngValue]="item"
+          [selected]="item.hour == hour && i % 2 == 0"
+        >
+          {{ item.hourStart }}
         </option>
       </select>
     </div>
     <div class="form-group col-6">
-      <label for="email">Horário Final</label>
+      <label for="hourEnd">Horário Final</label>
       <input
-        type="email"
+        disabled
+        type="hourEnd"
         class="form-control"
-        id="email"
-        placeholder="Seu Email"
-        [(ngModel)]="email"
+        id="hourEnd"
+        placeholder="00:00"
+        [(ngModel)]="hourEnd"
       />
     </div>
   </div>

@@ -21,13 +21,14 @@ export class PersonService {
     return body || {};
   }
 
-  public postCreatePerson(name, email, phone): Observable<any> {
+  public postCreatePerson(name, email, phone, password): Observable<any> {
     return this.http
-      .post(environment.urlApi + "user/createPerson", {
+      .post(environment.urlApi + "user/createUser", {
         name,
         email,
         PhoneNumber: phone,
         CreatedFrom: 2,
+        Password: password,
       })
       .pipe(map(this.extractData));
   }

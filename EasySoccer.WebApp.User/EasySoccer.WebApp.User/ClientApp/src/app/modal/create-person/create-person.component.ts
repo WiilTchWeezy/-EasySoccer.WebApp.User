@@ -12,6 +12,8 @@ export class CreatePersonComponent implements OnInit {
   name: string;
   email: string;
   phone: string;
+  password: string;
+  confirmPassword: string;
   constructor(
     public activeModal: NgbActiveModal,
     private personService: PersonService,
@@ -21,10 +23,10 @@ export class CreatePersonComponent implements OnInit {
   ngOnInit(): void {}
   save() {
     this.personService
-      .postCreatePerson(this.name, this.email, this.phone)
+      .postCreatePerson(this.name, this.email, this.phone, this.password)
       .subscribe(
         (response) => {
-          const modalRef = this.modalService.open(CreateReservationComponent);
+          this.activeModal.close();
         },
         (error) => {
           console.log(error);

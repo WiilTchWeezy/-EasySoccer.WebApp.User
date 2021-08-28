@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { NgbDate, NgbModal, NgbModalConfig } from "@ng-bootstrap/ng-bootstrap";
 import { CreatePersonComponent } from "../modal/create-person/create-person.component";
 import { CreateReservationComponent } from "../modal/create-reservation/create-reservation.component";
+import { LoginComponent } from "../modal/login/login.component";
 import { AuthService } from "../services/auth.service";
 import { CompanyService } from "../services/company.service";
 import { ImageService } from "../services/image.service";
@@ -45,13 +46,13 @@ export class CompanyDetailComponent implements OnInit {
       const modalRef = this.modalService.open(CreateReservationComponent);
       if (item && item.freeSoccerPitches) {
         modalRef.componentInstance.soccerPitches = item.freeSoccerPitches;
-        modalRef.componentInstance.optionsHours = item.optionsHours;
+        modalRef.componentInstance.hour = item.hour;
       }
       if (this.selectedDate) {
         modalRef.componentInstance.selectedDate = this.selectedDate;
       }
     } else {
-      const modalRef = this.modalService.open(CreatePersonComponent);
+      const modalRef = this.modalService.open(LoginComponent);
     }
   }
   dateChanged() {

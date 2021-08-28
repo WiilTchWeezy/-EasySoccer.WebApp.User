@@ -20,6 +20,7 @@ import { CustomDateParserFormatter } from "./adapters/NgbdDatepickerAdapter";
 import { CreatePersonComponent } from "./modal/create-person/create-person.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
 import { CreateReservationComponent } from './modal/create-reservation/create-reservation.component';
+import { LoginComponent } from './modal/login/login.component';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, "pt-BR");
 @NgModule({
@@ -31,6 +32,7 @@ registerLocaleData(localePt, "pt-BR");
     LoaderComponent,
     CreatePersonComponent,
     CreateReservationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
