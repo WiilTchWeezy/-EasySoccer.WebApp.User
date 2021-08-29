@@ -1,0 +1,33 @@
+<div class="modal-header" style="background-color: #ff591f">
+  <div>
+    <img
+      class="center-block img-fluid"
+      src="../../../assets/img/logoBlue.png"
+    />
+  </div>
+  <button
+    type="button"
+    (click)="activeModal.dismiss('Cross click')"
+    class="close"
+    aria-label="Close"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="form-group col-12">
+      {{ bodyText }}
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    style="background-color: #161e53; color: #fff"
+    (click)="ok()"
+  >
+    {{ okText }}
+  </button>
+</div>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { PersonService } from "src/app/services/person.service";
 import { CreateReservationComponent } from "../create-reservation/create-reservation.component";
+import { ModalComponent } from "../modal/modal.component";
 
 @Component({
   selector: "app-create-person",
@@ -26,6 +27,10 @@ export class CreatePersonComponent implements OnInit {
       .postCreatePerson(this.name, this.email, this.phone, this.password)
       .subscribe(
         (response) => {
+          const modalRef = this.modalService.open(ModalComponent);
+          modalRef.componentInstance.okText = "Ok";
+          modalRef.componentInstance.bodyText =
+            "Usuário criado. Agora realize seu login.";
           this.activeModal.close();
         },
         (error) => {
