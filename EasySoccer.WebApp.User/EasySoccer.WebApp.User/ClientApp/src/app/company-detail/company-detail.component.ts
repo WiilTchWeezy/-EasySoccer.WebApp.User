@@ -52,7 +52,20 @@ export class CompanyDetailComponent implements OnInit {
         modalRef.componentInstance.selectedDate = this.selectedDate;
       }
     } else {
-      const modalRef = this.modalService.open(LoginComponent);
+      const modalRef = this.modalService
+        .open(LoginComponent)
+        .result.then((response) => {
+          if (response) {
+            const modalRef = this.modalService.open(CreateReservationComponent);
+            if (item && item.freeSoccerPitches) {
+              modalRef.componentInstance.soccerPitches = item.freeSoccerPitches;
+              modalRef.componentInstance.hour = item.hour;
+            }
+            if (this.selectedDate) {
+              modalRef.componentInstance.selectedDate = this.selectedDate;
+            }
+          }
+        });
     }
   }
   dateChanged() {

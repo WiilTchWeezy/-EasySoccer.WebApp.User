@@ -22,6 +22,7 @@ import { NgxMaskModule, IConfig } from "ngx-mask";
 import { CreateReservationComponent } from './modal/create-reservation/create-reservation.component';
 import { LoginComponent } from './modal/login/login.component';
 import { ModalComponent } from './modal/modal/modal.component';
+import { LogoutComponent } from './modal/logout/logout.component';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, "pt-BR");
 @NgModule({
@@ -35,6 +36,7 @@ registerLocaleData(localePt, "pt-BR");
     CreateReservationComponent,
     LoginComponent,
     ModalComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
