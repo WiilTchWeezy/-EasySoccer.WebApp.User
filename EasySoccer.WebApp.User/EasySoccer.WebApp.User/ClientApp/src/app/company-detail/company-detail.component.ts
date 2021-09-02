@@ -17,6 +17,11 @@ export class CompanyDetailComponent implements OnInit {
   companyId: string;
   companyInfo: any = {};
   selectedDate: NgbDate;
+  minDate: NgbDate = new NgbDate(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    new Date().getDate() - 1
+  );
   constructor(
     private companyService: CompanyService,
     private route: ActivatedRoute,
@@ -28,6 +33,12 @@ export class CompanyDetailComponent implements OnInit {
     this.companyId = this.route.snapshot.params.companyId;
     config.backdrop = "static";
     config.keyboard = false;
+    let today = new Date();
+    this.minDate = new NgbDate(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      today.getDate()
+    );
   }
 
   ngOnInit(): void {

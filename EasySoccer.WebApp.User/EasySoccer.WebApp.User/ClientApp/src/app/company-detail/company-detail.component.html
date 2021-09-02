@@ -82,6 +82,7 @@
           ngbDatepicker
           #d="ngbDatepicker"
           [(ngModel)]="selectedDate"
+          [minDate]="minDate"
           (ngModelChange)="dateChanged()"
         />
         <div class="input-group-append">
