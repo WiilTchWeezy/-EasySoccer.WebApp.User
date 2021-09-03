@@ -8,12 +8,6 @@ import { environment } from "src/environments/environment";
   providedIn: "root",
 })
 export class PersonService {
-  endpoint = environment.urlApi;
-  httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-    }),
-  };
   constructor(private http: HttpClient) {}
 
   private extractData(res: Response) {

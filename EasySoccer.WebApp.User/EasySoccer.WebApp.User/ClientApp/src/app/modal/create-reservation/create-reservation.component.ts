@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { NgbActiveModal, NgbDate } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbDate, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ReservationService } from "src/app/services/reservation.service";
 import { SoccerPitchPlanService } from "src/app/services/soccer-pitch-plan.service";
+import { ModalComponent } from "../modal/modal.component";
 
 @Component({
   selector: "app-create-reservation",
@@ -22,12 +24,33 @@ export class CreateReservationComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private soccerPitchPlanService: SoccerPitchPlanService
+    private soccerPitchPlanService: SoccerPitchPlanService,
+    private reservatioService: ReservationService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {}
 
-  save() {}
+  save() {
+    this.reservatioService
+      .postCreateReservation(
+        this.selectedSoccerPitch.id,
+        this.selectedSoccerPitchPlan.id,
+        this.selectedDate,
+        this.selectedHour.hourStart,
+        this.hourEnd
+      )
+      .subscribe(
+        (response) => {
+          const modalRef = this.modalService.open(ModalComponent);
+          modalRef.componentInstance.okText = "Ok";
+          modalRef.componentInstance.bodyText =
+            "Horário reservado com sucesso!";
+          this.activeModal.close();
+        },
+        (error) => {}
+      );
+  }
 
   soccerPitchChanged() {
     if (this.selectedSoccerPitch) {

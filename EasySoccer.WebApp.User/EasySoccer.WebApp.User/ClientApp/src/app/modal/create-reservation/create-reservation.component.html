@@ -36,7 +36,10 @@
         id="soccerPitchPlan"
         [(ngModel)]="selectedSoccerPitchPlan"
       >
-        <option *ngFor="let item of soccerPitchPlans; let i = index">
+        <option
+          [ngValue]="item"
+          *ngFor="let item of soccerPitchPlans; let i = index"
+        >
           {{ item.name }}
         </option>
       </select>
