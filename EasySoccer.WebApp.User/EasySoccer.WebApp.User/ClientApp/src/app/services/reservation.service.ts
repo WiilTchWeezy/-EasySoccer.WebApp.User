@@ -34,4 +34,16 @@ export class ReservationService {
       })
       .pipe(map(this.extractData));
   }
+
+  public getMyReservation(page, pageSize): Observable<any> {
+    return this.http
+      .get(
+        environment.urlApi +
+          "SoccerPitchReservation/getuserschedules?page=" +
+          page +
+          "&pageSize=" +
+          pageSize
+      )
+      .pipe(map(this.extractData));
+  }
 }

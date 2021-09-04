@@ -18,6 +18,7 @@ export class NavMenuComponent implements OnInit {
     private modalService: NgbModal
   ) {}
   ngOnInit(): void {
+    this.authService.isAuth();
     this.authService.authEmitter.subscribe((value) => {
       this.isAuth = value;
       if (value) {

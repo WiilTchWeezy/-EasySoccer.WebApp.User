@@ -38,6 +38,11 @@
             <a class="nav-link text-dark">{{ userName }}</a>
           </li>
           <li class="nav-item" *ngIf="isAuth">
+            <a class="nav-link text-dark" routerLink="/myreservations"
+              >Meus horários</a
+            >
+          </li>
+          <li class="nav-item" *ngIf="isAuth">
             <a class="nav-link text-dark" (click)="logout()">Sair</a>
           </li>
         </ul>

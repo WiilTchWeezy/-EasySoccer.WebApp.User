@@ -4,6 +4,7 @@ import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { ToastService } from "../base/services/toast.service";
 
 @Injectable({
   providedIn: "root",
@@ -13,7 +14,8 @@ export class AuthService {
 
   constructor(
     private cookieService: CookieService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private toastService: ToastService
   ) {}
   isAuth() {
     let token = this.cookieService.get("token");
@@ -41,13 +43,18 @@ export class AuthService {
   login(email: string, password: string) {
     this.authApi(email, password).subscribe(
       (response) => {
-        this.cookieService.set("token", response.token);
+        debugger;
+        var expiresDate = new Date(response.expireDate);
+        this.cookieService.set("token", response.token, expiresDate, "/");
         this.cookieService.set("expireDate", response.expireDate);
         this.authEmitter.emit(true);
         return true;
       },
       (error) => {
         this.authEmitter.emit(false);
+        this.toastService.showError(
+          "Ops! ocorreu um erro." + error?.error?.message
+        );
         return false;
       }
     );

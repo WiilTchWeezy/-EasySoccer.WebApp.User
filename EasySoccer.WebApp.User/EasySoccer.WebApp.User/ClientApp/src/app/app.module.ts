@@ -19,10 +19,13 @@ import { registerLocaleData } from "@angular/common";
 import { CustomDateParserFormatter } from "./adapters/NgbdDatepickerAdapter";
 import { CreatePersonComponent } from "./modal/create-person/create-person.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
-import { CreateReservationComponent } from './modal/create-reservation/create-reservation.component';
-import { LoginComponent } from './modal/login/login.component';
-import { ModalComponent } from './modal/modal/modal.component';
-import { LogoutComponent } from './modal/logout/logout.component';
+import { CreateReservationComponent } from "./modal/create-reservation/create-reservation.component";
+import { LoginComponent } from "./modal/login/login.component";
+import { ModalComponent } from "./modal/modal/modal.component";
+import { LogoutComponent } from "./modal/logout/logout.component";
+import { MyreservationsComponent } from "./myreservations/myreservations.component";
+import { ToastComponent } from "./base/toast/toast.component";
+import { APP_BASE_HREF } from "@angular/common";
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, "pt-BR");
 @NgModule({
@@ -37,22 +40,24 @@ registerLocaleData(localePt, "pt-BR");
     LoginComponent,
     ModalComponent,
     LogoutComponent,
+    MyreservationsComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(
-      [
-        { path: "", component: CompanyDetailComponent, pathMatch: "full" },
-        {
-          path: "companydetail/:companyId",
-          component: CompanyDetailComponent,
-          pathMatch: "full",
-        },
-      ],
-      { relativeLinkResolution: "legacy" }
-    ),
+    RouterModule.forRoot([
+      { path: "", component: CompanyDetailComponent, pathMatch: "full" },
+      {
+        path: "companydetail/:companyId",
+        component: CompanyDetailComponent,
+      },
+      {
+        path: "myreservations",
+        component: MyreservationsComponent,
+      },
+    ]),
     NgbModule,
     LoaderModule,
     NgxLoadingModule.forRoot({ fullScreenBackdrop: true }),
@@ -70,6 +75,7 @@ registerLocaleData(localePt, "pt-BR");
       useValue: "pt-BR",
     },
     { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
+    { provide: APP_BASE_HREF, useValue: "/" },
   ],
   bootstrap: [AppComponent],
 })
