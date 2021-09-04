@@ -1,8 +1,30 @@
 <div class="container">
-  <p>MyReservations</p>
-  <div *ngFor="let item of mySchedules">
-    <p>
-      {{ item.soccerPitchName }}
-    </p>
+  <p>Meus Horários</p>
+  <div class="card w-90" *ngFor="let item of mySchedules">
+    <div class="row no-gutters">
+      <div class="col-sm-5">
+        <img
+          class="card-img"
+          [src]="item.companyImage"
+          [alt]="item.companyName"
+        />
+      </div>
+      <div class="col-sm-7">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ item.companyName }}
+          </h5>
+          <p class="card-text">
+            {{ item.soccerPitchName }}<br />
+            <b>Data: {{ item.selectedDate | date: "dd/MM/yyyy" }}</b
+            ><br />
+            <b
+              >Horário: {{ item.selectedHourStart }} -
+              {{ item.selectedHourEnd }}</b
+            >
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
