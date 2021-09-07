@@ -26,6 +26,8 @@ import { LogoutComponent } from "./modal/logout/logout.component";
 import { MyreservationsComponent } from "./myreservations/myreservations.component";
 import { ToastComponent } from "./base/toast/toast.component";
 import { APP_BASE_HREF } from "@angular/common";
+import { ForgotPasswordComponent } from "./modal/forgot-password/forgot-password.component";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, "pt-BR");
 @NgModule({
@@ -42,6 +44,8 @@ registerLocaleData(localePt, "pt-BR");
     LogoutComponent,
     MyreservationsComponent,
     ToastComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -56,6 +60,10 @@ registerLocaleData(localePt, "pt-BR");
       {
         path: "myreservations",
         component: MyreservationsComponent,
+      },
+      {
+        path: "resetpassword/:token",
+        component: ResetPasswordComponent,
       },
     ]),
     NgbModule,

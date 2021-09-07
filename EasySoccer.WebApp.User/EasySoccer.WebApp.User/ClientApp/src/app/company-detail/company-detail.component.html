@@ -1,130 +1,155 @@
-<div
-  class="container"
-  style="padding: 0px; margin: 0px; vertical-align: middle"
-  id="company"
->
-  <img
-    [src]="companyInfo.imageLogo"
-    alt="Snow"
-    class="img-fluid"
-    style="width: 100%"
-  />
-  <div class="centered bold-font container-text">
-    {{ companyInfo.name }}<br />
-    <span class="container-text-description"> {{ companyInfo.city }} </span>
+<div id="company">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-12 col-md-6" style="padding: 0px">
+      <img
+        [src]="companyInfo.imageLogo"
+        [alt]="companyInfo.name"
+        class="img-fluid w-80"
+      />
+      <div class="centered bold-font container-text">
+        {{ companyInfo.name }}<br />
+        <span class="container-text-description"> {{ companyInfo.city }} </span>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
   </div>
 </div>
 <div class="container">
-  <p style="margin-bottom: 0px">
-    {{ companyInfo.description }}
-  </p>
-  <div class="card">
-    <div class="card-body">
-      {{ companyInfo.completeAddress }}
-      <i class="fa fa-chevron-right" style="float: right"></i>
+  <div class="row">
+    <div class="col-12">
+      <p style="margin-bottom: 0px">
+        {{ companyInfo.description }}
+      </p>
+      <div class="card">
+        <div class="card-body">
+          {{ companyInfo.completeAddress }}
+          <i class="fa fa-chevron-right" style="float: right"></i>
+        </div>
+      </div>
     </div>
   </div>
-  <h5 class="border-bottom border-dark">Quadras</h5>
-  <div class="carousel slide" data-ride="carousel" id="soccerPitchs">
-    <div class="carousel-inner">
-      <div
-        class="carousel-item"
-        *ngFor="let item of companyInfo.soccerPitchs; let i = index"
-        [ngClass]="i == 0 ? 'active' : ''"
-      >
-        <div class="card d-block w-100">
-          <img
-            class="card-img-top"
-            [src]="
-              imageService.getImageUrlByImageName(item.imageName, 'soccerpitch')
+  <div>
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <h5 class="border-bottom border-dark">Quadras</h5>
+        <div class="carousel slide" data-ride="carousel" id="soccerPitchs">
+          <div class="carousel-inner">
+            <div
+              class="carousel-item"
+              *ngFor="let item of companyInfo.soccerPitchs; let i = index"
+              [ngClass]="i == 0 ? 'active' : ''"
+            >
+              <div class="card d-block">
+                <img
+                  class="img-fluid"
+                  [src]="
+                    imageService.getImageUrlByImageName(
+                      item.imageName,
+                      'soccerpitch'
+                    )
+                  "
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{{ item.name }}</h5>
+                  <p class="card-text">
+                    {{ item.description }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#soccerPitchs"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#soccerPitchs"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div class="container" id="schedules">
+          <h5 class="border-bottom border-dark">Horários Disponíveis</h5>
+          <form class="form-inline w-100">
+            <div class="form-group w-100">
+              <div class="input-group w-100" style="margin-bottom: 10px">
+                <input
+                  class="form-control"
+                  placeholder="dd/mm/yyyy"
+                  name="dp"
+                  ngbDatepicker
+                  #d="ngbDatepicker"
+                  [(ngModel)]="selectedDate"
+                  [minDate]="minDate"
+                  (ngModelChange)="dateChanged()"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary"
+                    (click)="d.toggle()"
+                    type="button"
+                  >
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div
+            class="w-100"
+            style="
+              background-color: #bdbdbd;
+              margin-bottom: 15px;
+              padding-bottom: 6px;
             "
-            alt="Card image cap"
-          />
-          <div class="card-body">
-            <h5 class="card-title">{{ item.name }}</h5>
-            <p class="card-text">
-              {{ item.description }}
-            </p>
+            *ngFor="let item of companyInfo.companySchedules; let i = index"
+          >
+            <div
+              class="col-12 mx-auto"
+              style="padding-left: 5px; padding-right: 5px"
+            >
+              <p class="bold-font" style="margin-bottom: 0px">
+                {{ item.hour }}:00
+              </p>
+              <div
+                class="w-50"
+                style="margin: auto; padding-bottom: 6px"
+                [hidden]="item.allSoccerPitchesOcupied"
+              >
+                Horário Disponível
+              </div>
+              <div
+                class="text-danger"
+                style="margin: auto; padding-bottom: 6px; width: 65%"
+                [hidden]="!item.allSoccerPitchesOcupied"
+              >
+                Nenhum horário disponível
+              </div>
+              <button
+                type="button"
+                [hidden]="item.allSoccerPitchesOcupied"
+                class="btn btn-primary btn-sm w-100"
+                (click)="schedule(item)"
+              >
+                Agendar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <a
-      class="carousel-control-prev"
-      href="#soccerPitchs"
-      role="button"
-      data-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a
-      class="carousel-control-next"
-      href="#soccerPitchs"
-      role="button"
-      data-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
-<div class="container" id="schedules">
-  <h5 class="border-bottom border-dark">Horários Disponíveis</h5>
-  <form class="form-inline w-100">
-    <div class="form-group w-100">
-      <div class="input-group">
-        <input
-          class="form-control"
-          placeholder="dd/mm/yyyy"
-          name="dp"
-          ngbDatepicker
-          #d="ngbDatepicker"
-          [(ngModel)]="selectedDate"
-          [minDate]="minDate"
-          (ngModelChange)="dateChanged()"
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary"
-            (click)="d.toggle()"
-            type="button"
-          >
-            <i class="fa fa-calendar"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </form>
-  <div
-    class="w-100"
-    style="background-color: #bdbdbd; margin-bottom: 15px; padding-bottom: 6px"
-    *ngFor="let item of companyInfo.companySchedules; let i = index"
-  >
-    <div class="col-12 mx-auto" style="padding-left: 5px; padding-right: 5px">
-      <p class="bold-font" style="margin-bottom: 0px">{{ item.hour }}:00</p>
-      <div
-        class="w-50"
-        style="margin: auto; padding-bottom: 6px"
-        [hidden]="item.allSoccerPitchesOcupied"
-      >
-        Horário Disponível
-      </div>
-      <div
-        class="text-danger"
-        style="margin: auto; padding-bottom: 6px; width: 65%"
-        [hidden]="!item.allSoccerPitchesOcupied"
-      >
-        Nenhum horário disponível
-      </div>
-      <button
-        type="button"
-        [hidden]="item.allSoccerPitchesOcupied"
-        class="btn btn-primary btn-sm w-100"
-        (click)="schedule(item)"
-      >
-        Agendar
-      </button>
     </div>
   </div>
 </div>

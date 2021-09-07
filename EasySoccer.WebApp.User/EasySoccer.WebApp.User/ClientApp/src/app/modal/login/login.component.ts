@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AuthService } from "src/app/services/auth.service";
 import { CreatePersonComponent } from "../create-person/create-person.component";
+import { ForgotPasswordComponent } from "../forgot-password/forgot-password.component";
 
 @Component({
   selector: "app-login",
@@ -36,5 +37,9 @@ export class LoginComponent implements OnInit {
 
   alertClosed() {
     this.showErrorLogin = false;
+  }
+
+  forgotPassword() {
+    const modalRef = this.modalService.open(ForgotPasswordComponent);
   }
 }

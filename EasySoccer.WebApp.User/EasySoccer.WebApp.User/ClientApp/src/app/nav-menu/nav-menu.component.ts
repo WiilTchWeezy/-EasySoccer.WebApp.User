@@ -18,13 +18,13 @@ export class NavMenuComponent implements OnInit {
     private modalService: NgbModal
   ) {}
   ngOnInit(): void {
-    this.authService.isAuth();
     this.authService.authEmitter.subscribe((value) => {
       this.isAuth = value;
       if (value) {
         this.getUserInfo();
       }
     });
+    this.isAuth = this.authService.isAuth();
   }
   getUserInfo() {
     this.authService.getUserInfo().subscribe(

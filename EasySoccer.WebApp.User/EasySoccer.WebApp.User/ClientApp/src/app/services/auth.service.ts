@@ -20,12 +20,7 @@ export class AuthService {
   isAuth() {
     let token = this.cookieService.get("token");
     var expireDate = new Date(this.cookieService.get("expireDate"));
-    if (
-      token != null &&
-      token != "" &&
-      token != undefined &&
-      new Date() < expireDate
-    ) {
+    if (token != null && token != "" && token != undefined) {
       this.authEmitter.emit(true);
       return true;
     } else {
@@ -35,7 +30,7 @@ export class AuthService {
   }
 
   logOff() {
-    this.cookieService.delete("token");
+    this.cookieService.delete("token", "/");
     this.cookieService.delete("expireDate");
     this.authEmitter.emit(false);
   }
@@ -80,6 +75,21 @@ export class AuthService {
   getUserInfo(): Observable<any> {
     return this.httpClient
       .get(environment.urlApi + "user/getInfo")
+      .pipe(map(this.extractData));
+  }
+
+  requestResetPassword(email): Observable<any> {
+    return this.httpClient
+      .post(environment.urlApi + "user/requestresetpassword", { Email: email })
+      .pipe(map(this.extractData));
+  }
+
+  resetPassword(token, password): Observable<any> {
+    return this.httpClient
+      .post(environment.urlApi + "user/resetpassword", {
+        Token: token,
+        Password: password,
+      })
       .pipe(map(this.extractData));
   }
 }
