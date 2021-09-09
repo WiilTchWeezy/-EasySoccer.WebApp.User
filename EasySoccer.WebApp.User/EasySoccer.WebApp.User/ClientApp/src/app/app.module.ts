@@ -28,6 +28,7 @@ import { ToastComponent } from "./base/toast/toast.component";
 import { APP_BASE_HREF } from "@angular/common";
 import { ForgotPasswordComponent } from "./modal/forgot-password/forgot-password.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
+import { CompaniesComponent } from "./companies/companies.component";
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localePt, "pt-BR");
 @NgModule({
@@ -46,13 +47,14 @@ registerLocaleData(localePt, "pt-BR");
     ToastComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    CompaniesComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: "", component: CompanyDetailComponent, pathMatch: "full" },
+      { path: "", component: CompaniesComponent, pathMatch: "full" },
       {
         path: "companydetail/:companyId",
         component: CompanyDetailComponent,

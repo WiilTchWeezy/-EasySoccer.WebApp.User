@@ -37,4 +37,32 @@ export class CompanyService {
       )
       .pipe(map(this.extractData));
   }
+
+  public getCompanies(page, pageSize, idCity, idState): Observable<any> {
+    return this.http
+      .get(
+        environment.urlApi +
+          "company/get?page=" +
+          page +
+          "&pageSize=" +
+          pageSize +
+          "&idCity=" +
+          idCity +
+          "&idState=" +
+          idState
+      )
+      .pipe(map(this.extractData));
+  }
+
+  public getStates(): Observable<any> {
+    return this.http
+      .get(environment.urlApi + "company/getstates")
+      .pipe(map(this.extractData));
+  }
+
+  public getCitiesByState(idState): Observable<any> {
+    return this.http
+      .get(environment.urlApi + "company/getcitiesbystate?IdState=" + idState)
+      .pipe(map(this.extractData));
+  }
 }
