@@ -38,7 +38,14 @@ export class CompanyService {
       .pipe(map(this.extractData));
   }
 
-  public getCompanies(page, pageSize, idCity, idState): Observable<any> {
+  public getCompanies(
+    page,
+    pageSize,
+    idCity,
+    idState,
+    longitude,
+    latitude
+  ): Observable<any> {
     return this.http
       .get(
         environment.urlApi +
@@ -49,7 +56,11 @@ export class CompanyService {
           "&idCity=" +
           idCity +
           "&idState=" +
-          idState
+          idState +
+          "&longitude=" +
+          longitude +
+          "&latitude=" +
+          latitude
       )
       .pipe(map(this.extractData));
   }

@@ -15,6 +15,8 @@ export class CompaniesComponent implements OnInit {
   cities: Array<any> = new Array<any>();
   selectedState: any = 0;
   selectedCity: any = 0;
+  latitude: any;
+  longitude: any;
   constructor(
     private companyService: CompanyService,
     private toastService: ToastService,
@@ -23,33 +25,64 @@ export class CompaniesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getcompanies();
+    this.getCompanies();
     this.getStates();
+    this.getCurrentLocation();
   }
 
-  getcompanies() {
+  getCurrentLocation() {
+    if (window.navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(
+        (position) => {
+          debugger;
+          this.latitude = position.coords.latitude;
+          this.longitude = position.coords.longitude;
+          this.getCompanies();
+        },
+        (failure) => {
+          if (failure.message.indexOf("Only secure origins are allowed") == 0) {
+            alert("Only secure origins are allowed by your browser.");
+          }
+        }
+      );
+    } else {
+      console.log("Your browser doesn't support geolocation");
+    }
+  }
+
+  getCompanies() {
     let idState = 0;
     let idCity = 0;
+    let longitude = null;
+    let latitude = null;
     if (this.selectedCity && this.selectedCity > 0) {
       idCity = this.selectedCity;
     }
     if (this.selectedState && this.selectedState > 0) {
       idState = this.selectedState;
     }
-    this.companyService.getCompanies(1, 999, idCity, idState).subscribe(
-      (response) => {
-        this.companies = response;
-        this.companies.forEach((x) => {
-          x.companyImage = this.imageService.getImageUrlByImageName(
-            x.logo,
-            "company"
-          );
-        });
-      },
-      (error) => {
-        this.toastService.showError(error?.error?.message);
-      }
-    );
+    if (this.latitude && this.latitude != 0) {
+      latitude = this.latitude;
+    }
+    if (this.longitude && this.longitude != 0) {
+      longitude = this.longitude;
+    }
+    this.companyService
+      .getCompanies(1, 99, idCity, idState, longitude, latitude)
+      .subscribe(
+        (response) => {
+          this.companies = response;
+          this.companies.forEach((x) => {
+            x.companyImage = this.imageService.getImageUrlByImageName(
+              x.logo,
+              "company"
+            );
+          });
+        },
+        (error) => {
+          this.toastService.showError(error?.error?.message);
+        }
+      );
   }
 
   getStates() {
@@ -77,6 +110,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   openCompany(item) {
+    debugger;
     this.router.navigate(["/companydetail/" + item.id]);
   }
 }

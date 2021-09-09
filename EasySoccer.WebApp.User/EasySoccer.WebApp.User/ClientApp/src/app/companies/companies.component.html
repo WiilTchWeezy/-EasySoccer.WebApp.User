@@ -39,7 +39,7 @@
         type="button"
         class="btn btn-outline-dark"
         style="background-color: #161e53; color: #fff; float: right"
-        (click)="getcompanies()"
+        (click)="getCompanies()"
       >
         Filtrar
       </button>
@@ -62,6 +62,7 @@
           <p class="card-text">
             {{ item.description }}<br />
             {{ item.cityName }}<br />
+            {{ item.distanceMeters }}<br />
             {{ item.completeAddress }}
           </p>
         </div>
