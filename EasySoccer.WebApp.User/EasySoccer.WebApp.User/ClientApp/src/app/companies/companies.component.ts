@@ -34,7 +34,6 @@ export class CompaniesComponent implements OnInit {
     if (window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition(
         (position) => {
-          debugger;
           this.latitude = position.coords.latitude;
           this.longitude = position.coords.longitude;
           this.getCompanies();
@@ -110,7 +109,6 @@ export class CompaniesComponent implements OnInit {
   }
 
   openCompany(item) {
-    debugger;
     this.router.navigate(["/companydetail/" + item.id]);
   }
 }

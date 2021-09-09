@@ -38,7 +38,6 @@ export class AuthService {
   login(email: string, password: string) {
     this.authApi(email, password).subscribe(
       (response) => {
-        debugger;
         var expiresDate = new Date(response.expireDate);
         this.cookieService.set("token", response.token, expiresDate, "/");
         this.cookieService.set("expireDate", response.expireDate);
